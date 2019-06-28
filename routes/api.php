@@ -21,3 +21,6 @@ Route::get('/todos', 'TodosController@index');
 Route::post('/todos', 'TodosController@store');
 Route::patch('/todos/{todo}', 'TodosController@update');
 Route::delete('/todos/{todo}', 'TodosController@destroy');
+
+Route::patch('/todosCheckAll', 'TodosController@updateAll');
+Route::delete('/todosDeleteCompleted', 'TodosController@destroyCompleted');

@@ -65,6 +65,18 @@ class TodosController extends Controller
         return response($todo, 200);
     }
 
+    public function updateAll(Request $request)
+    {
+        $data = $request->validate([
+            'completed' => 'required|boolean'
+        ]);
+
+        // Bulk update
+        Todo::query()->update($data);
+
+        return response('Updated All', 200);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -76,5 +88,16 @@ class TodosController extends Controller
         $todo->delete();
 
         return response('Deleted todo item', 200);
+    }
+
+    public function destroyCompleted(Request $request)
+    {
+        $request->validate([
+            'todos' => 'required|array'
+        ]);
+
+        Todo::destroy($request->todos);
+
+        return response('Deleted All', 200);
     }
 }
