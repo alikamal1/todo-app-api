@@ -13,11 +13,18 @@ class CreateTodosTable extends Migration
      */
     public function up()
     {
+
         Schema::create('todos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->text('title');
             $table->boolean('completed')->default(false);
             $table->timestamps();
+        });
+
+        Schema::table('todos', function ($table) {
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
